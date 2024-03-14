@@ -1,0 +1,35 @@
+<mvc:View 
+	height="100%"
+	controllerName="aiapp.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="mainPage" title="{i18n>title}">
+        <content>
+			<Panel
+				id="datePanel"
+				headerText="Insert your data"
+				width="auto">
+				<Label id="lbProducID" text="Product ID" />
+				<Input id="inProductId" value="{/product_id}"
+				class="sapUiSmallMarginBottom" />
+				<Label id="lbFutureDate" text="Future Date" />
+				<!-- <Date value="{future_date}" /> -->
+                <DatePicker
+					id="DP2"
+					value="{
+						'path':'/future_date',
+						'type':'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'yyyy-MM-dd'
+						}
+					}"
+					change="handleChange"
+					class="sapUiSmallMarginBottom"/>
+				<Button id="btnPredict" type="Emphatize" text="Predict" editable="{= ${/product_id} &amp;&amp; ${/future_date} }" press="onPressPredict" />
+				</Panel>
+		</content>
+    </Page>
+</mvc:View>
