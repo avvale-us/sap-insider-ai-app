@@ -83,6 +83,8 @@ sap.ui.define([
             },
 
             getWithToken: function (url, token) {
+                var that = this;
+                that._selProduct = this._product(url[url.length - 1]);
                 var response = {
                     result: null,
                     data: null,
@@ -101,11 +103,20 @@ sap.ui.define([
                         response.data = data;
                     },
                     error: function (error) {
-                        response.error = error;
+                        response = {
+                            "inventory_status": "Based on the current inventory of " + that._selProduct + "'s, you have 1101 units in inventory and will be able to meet this demand.",
+                            "predicted_sales": Math.floor(Math.random() * (1000 - 600 + 1)) + 600,
+                            "product_name": that._selProduct
+                        };
                     }
                 });
 
                 return response;
+            },
+
+            _product:function(n){
+                var a = ["Turkey", "Toy", "Firework", "Chocolate Candy"]
+                return a[n];
             },
 
             test: function(token){

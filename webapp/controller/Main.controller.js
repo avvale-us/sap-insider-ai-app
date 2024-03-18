@@ -30,10 +30,11 @@ sap.ui.define([
                     };
         
                     const sToken = Models.requestToken("https://23sz1f7-hgwgn184.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials");
-                    const oStatus = Models.getWithToken("https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dc188a693c44849e/v2/predict?date=2023-1-18&product_number=2", sToken);
-                    Models.test(sToken);
-                    //this.getOwnerComponent().getModel("aux").setProperty("/headerUUID", oStatus.uuid);
-                    return oStatus;
+                    const oObject = Models.getWithToken("https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dc188a693c44849e/v2/predict?date=2023-1-18&product_number=" + this.getView().byId("inProductId").getSelectedIndex(), sToken);
+                    oModel.setProperty("/inventory_status", oObject.inventory_status);
+                    oModel.setProperty("/predicted_sales", oObject.predicted_sales);
+                    oModel.setProperty("/product_name", oObject.product_name);
+                    oModel.refresh(true);
 
             },
 
