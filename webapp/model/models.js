@@ -36,8 +36,8 @@ sap.ui.define([
                       "Content-Type": "application/x-www-form-urlencoded"
                     },
                     "data": {
-                      "client_id": "sb-627b9b98-14da-4863-b323-b15e1d81fd22!b143657|aicore!b540",
-                      "client_secret": "1ea77d4f-1a33-4f52-9099-565b0682473a$1O9i7E7tqhXxRu4_Lcie8DBHoSZlAhDxyUZD8tDDxZ4=",
+                      "client_id": "<<ADD_CLIENT_ID>>",
+                      "client_secret": "<<ADD_CLIENT_SECRET>>",
                       "grant_type": "client_credentials"
                     },
                     success: function (result, xhr, data) {
