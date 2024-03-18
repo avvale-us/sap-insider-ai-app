@@ -28,14 +28,20 @@ sap.ui.define([
                 var token = "";
 
                 $.ajax({
-                    url: this.getCompleteUrl(url),
-                    method: "GET",
-                    async: false,
-                    headers: {
-                        "X-CSRF-Token": "Fetch",
+                    "url": url,
+                    "method": "POST",
+                    "timeout": 0,
+                    "async": false,
+                    "headers": {
+                      "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    "data": {
+                      "client_id": "sb-627b9b98-14da-4863-b323-b15e1d81fd22!b143657|aicore!b540",
+                      "client_secret": "1ea77d4f-1a33-4f52-9099-565b0682473a$1O9i7E7tqhXxRu4_Lcie8DBHoSZlAhDxyUZD8tDDxZ4=",
+                      "grant_type": "client_credentials"
                     },
                     success: function (result, xhr, data) {
-                        token = data.getResponseHeader("X-CSRF-Token");
+                        token = "Bearer " + result.access_token;//data.getResponseHeader("X-CSRF-Token");
                     },
                     error: function (error) {
                         console.log("Error retrieving token from " + url);
@@ -84,11 +90,11 @@ sap.ui.define([
                 };
 
                 $.ajax({
-                    url: this.getCompleteUrl(url),
+                    url: url,
                     method: "GET",
                     async: false,
                     headers: {
-                        "X-CSRF-Token": token
+                        "Authorization": token
                     },
                     success: function (result, xhr, data) {
                         response.result = result;
@@ -102,12 +108,39 @@ sap.ui.define([
                 return response;
             },
 
+            test: function(token){
+                var settings = {
+                    url: "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dc188a693c44849e/v2/predict?date=2023-1-18&product_number=2",
+                    method: "GET",
+                    redirect: "follow",
+                    async: true,
+                    "headers": {
+                      "AI-Resource-Group": "insider-resource-group",
+                      "Accept": "application/json",
+                      "Authorization": token,
+                      "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function (result, xhr, data) {
+                        response.result = result;
+                        response.data = data;
+                    },
+                    error: function (error) {
+                        response.error = error;
+                    }
+                  };
+                  
+                  $.ajax(settings).done(function (response) {
+                    console.log(response);
+                  });
+                  
+            },
+
             //returns the status of the post call, the error if it fails;
             post: function (url, token, payload) {
                 var oStatus = null;
 
                 $.ajax({
-                    url: this.getCompleteUrl(url),
+                    url: "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/d7e3a66e8108fa9e/v2/predict",
                     method: "POST",
                     data: payload,
                     async: false,

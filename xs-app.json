@@ -3,7 +3,7 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/ai/(.*)$",
+      "source": "^/AI/(.*)$",
       "target": "$1",
       "destination": "AI",
       "authenticationType": "xsuaa",

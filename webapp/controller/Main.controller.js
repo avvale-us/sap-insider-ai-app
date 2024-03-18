@@ -29,8 +29,9 @@ sap.ui.define([
                         "future_date": "2023-07-03"
                     };
         
-                    const sToken = Models.requestToken("AI/v2/inference/deployments/d7e3a66e8108fa9e/v2/predict");
-                    const oStatus = Models.post("AI/v2/inference/deployments/d7e3a66e8108fa9e/v2/predict", sToken, JSON.stringify(oPayload));
+                    const sToken = Models.requestToken("https://23sz1f7-hgwgn184.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials");
+                    const oStatus = Models.getWithToken("https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dc188a693c44849e/v2/predict?date=2023-1-18&product_number=2", sToken);
+                    Models.test(sToken);
                     //this.getOwnerComponent().getModel("aux").setProperty("/headerUUID", oStatus.uuid);
                     return oStatus;
 
