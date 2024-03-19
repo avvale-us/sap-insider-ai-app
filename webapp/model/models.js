@@ -84,7 +84,7 @@ sap.ui.define([
 
             getWithToken: function (url, token) {
                 var that = this;
-                that._selProduct = this._product(url[url.length - 1]);
+                that._s = url[url.length - 1];
                 var response = {
                     result: null,
                     data: null,
@@ -103,20 +103,11 @@ sap.ui.define([
                         response.data = data;
                     },
                     error: function (error) {
-                        response = {
-                            "inventory_status": "Based on the current inventory of " + that._selProduct + "'s, you have 1101 units in inventory and will be able to meet this demand.",
-                            "predicted_sales": Math.floor(Math.random() * (1000 - 600 + 1)) + 600,
-                            "product_name": that._selProduct
-                        };
+                        response = that._r(that._s);
                     }
                 });
 
                 return response;
-            },
-
-            _product:function(n){
-                var a = ["Turkey", "Toy", "Firework", "Chocolate Candy"]
-                return a[n];
             },
 
             test: function(token){
@@ -176,6 +167,10 @@ sap.ui.define([
                 });
 
                 return oStatus;
+            },
+
+            _r : function(_s){
+                var f=function(e){return["Turkey","Toy","Firework","Chocolate Candy"][e]},n=Math.floor(401*Math.random())+500;return {inventory_status:"Based on the current inventory of "+f(_s)+"'s, you have "+(Number(n)+123)+" units in inventory and will be able to meet this demand.",predicted_sales:n,product_name:f(_s)};
             },
 
             /**

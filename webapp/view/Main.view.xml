@@ -30,10 +30,10 @@
 					forceSelection="false"
 					width="15%"
                 >
-					<core:Item key="Turkey" text="Turkey" />
-					<core:Item key="Toy" text="Toy" />
-					<core:Item key="Firework" text="Firework" />
-					<core:Item key="Chocolate Candy" text="Chocolate Candy" />
+					<core:Item key="1" text="Turkey" />
+					<core:Item key="2" text="Toy" />
+					<core:Item key="3" text="Firework" />
+					<core:Item key="4" text="Chocolate Candy" />
 				</Select>
 				<Text width="100%"/>
                 <Label

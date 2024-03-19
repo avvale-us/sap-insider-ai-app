@@ -25,12 +25,12 @@ sap.ui.define([
                     oData = oModel.getData();
 
                     let oPayload = {
-                        "product_id": 1,
-                        "future_date": "2023-07-03"
+                        "product_id": oData.product_id,
+                        "future_date": this._convertDate(oData.future_date)
                     };
         
                     const sToken = Models.requestToken("https://23sz1f7-hgwgn184.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials");
-                    const oObject = Models.getWithToken("https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dc188a693c44849e/v2/predict?date=2023-1-18&product_number=" + this.getView().byId("inProductId").getSelectedIndex(), sToken);
+                    const oObject = Models.getWithToken("https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dc188a693c44849e/v2/predict?date=" + oPayload.future_date  + "8&product_number=" + oPayload.product_id, sToken);
                     oModel.setProperty("/inventory_status", oObject.inventory_status);
                     oModel.setProperty("/predicted_sales", oObject.predicted_sales);
                     oModel.setProperty("/product_name", oObject.product_name);
